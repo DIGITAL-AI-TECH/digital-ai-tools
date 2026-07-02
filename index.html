@@ -4,24 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools — Digital AI</title>
-  <meta name="description" content="Ferramentas e recursos da Digital AI. Extensoes, utilitarios e downloads.">
+  <meta name="description" content="Ferramentas e recursos desenvolvidos pela Digital AI. Extensões Chrome, utilitários e downloads para parceiros.">
+  <meta property="og:title" content="Digital AI Tools">
+  <meta property="og:description" content="Ferramentas e extensões desenvolvidas pela Digital AI.">
+  <meta property="og:image" content="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/social/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --primary: #2D52EF;
-      --secondary: #3B2FC9;
-      --bg: #07091a;
-      --surface: #0f1530;
-      --surface-2: #172048;
-      --border: #1e2d5c;
-      --text: #e8edf8;
-      --muted: #7a8ab8;
+      --brand-primary:   #2D52EF;
+      --brand-secondary: #3B2FC9;
+      --brand-dark:      #0F1F5C;
+      --brand-accent:    #E8EEFF;
+      --bg:        #07091a;
+      --surface:   #0d1128;
+      --surface-2: #131929;
+      --surface-3: #1c2440;
+      --border:    #1e2d5c;
+      --border-2:  #2a3a6a;
+      --text:       #e8edf8;
+      --text-muted: #8094c8;
+      --text-dim:   #4a5a90;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
     }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -31,105 +42,121 @@
       flex-direction: column;
     }
     nav {
-      background: rgba(7, 9, 26, 0.92);
-      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 9, 26, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(30, 45, 92, 0.6);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 28px; display: block; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border-2); }
+    .nav-section { font-family: var(--font-heading); font-size: 13px; font-weight: 600; color: var(--text-muted); }
+    .nav-badge {
+      font-size: 11px; font-weight: 600; color: var(--brand-accent);
+      background: rgba(45, 82, 239, 0.15);
+      border: 1px solid rgba(45, 82, 239, 0.3);
+      border-radius: 100px; padding: 3px 10px; opacity: 0.85;
+    }
+    .hero {
+      background: linear-gradient(160deg, #0a0f28 0%, #0d1640 40%, #0a0f28 100%);
       border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
+      padding: 72px 32px 64px;
+      position: relative; overflow: hidden;
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
+    .hero::before {
+      content: '';
+      position: absolute; top: -40%; left: -10%; width: 60%; height: 180%;
+      background: radial-gradient(ellipse, rgba(45, 82, 239, 0.12) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .nav-brand { display: flex; flex-direction: column; }
-    .nav-product { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); }
-    .nav-by { font-size: 10px; color: #a5b4fc; opacity: 0.6; }
-
-    main {
-      flex: 1;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 64px 24px;
-      width: 100%;
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -30%; right: -5%; width: 40%; height: 120%;
+      background: radial-gradient(ellipse, rgba(59, 47, 201, 0.08) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .page-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(28px, 5vw, 40px);
-      font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: -0.5px;
+    .hero-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--brand-accent); opacity: 0.7; margin-bottom: 20px;
     }
-    .page-title span {
-      background: linear-gradient(135deg, #6b8aff, #a5b4fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .hero-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--brand-accent); opacity: 0.5; }
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 5vw, 52px); font-weight: 800;
+      letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 18px;
     }
-    .page-subtitle {
-      color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 48px;
-      max-width: 520px;
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #6b8aff 0%, #a5b4fc 50%, #c7d2fe 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px;
+    .hero-sub { font-size: 17px; color: var(--text-muted); max-width: 520px; line-height: 1.7; }
+    main { flex: 1; max-width: 860px; margin: 0 auto; padding: 56px 32px; width: 100%; }
+    .section-title {
+      font-family: var(--font-heading); font-size: 12px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px;
     }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
     .tool-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.2s, transform 0.15s;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .tool-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+      opacity: 0; transition: opacity 0.2s;
     }
     .tool-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
+      border-color: rgba(45, 82, 239, 0.4); transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(45, 82, 239, 0.1), 0 4px 12px rgba(0,0,0,0.3);
     }
-    .tool-icon { font-size: 32px; }
-    .tool-name {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
+    .tool-card:hover::before { opacity: 1; }
+    .tool-icon-wrap {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
     }
-    .tool-desc {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.65;
-    }
+    .tool-name { font-family: var(--font-heading); font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+    .tool-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .tool-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
     .tool-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(45, 82, 239, 0.12);
-      border: 1px solid rgba(45, 82, 239, 0.25);
-      border-radius: 100px;
-      padding: 4px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #a5b4fc;
-      width: fit-content;
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(45, 82, 239, 0.1); border: 1px solid rgba(45, 82, 239, 0.2);
+      border-radius: 100px; padding: 4px 12px; font-size: 11px; font-weight: 600; color: #a5b4fc;
     }
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 24px;
-      text-align: center;
+    .tool-arrow {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--surface-3); border: 1px solid var(--border-2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 14px; transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    footer p { font-size: 12px; color: var(--muted); }
-    footer a { color: var(--primary); text-decoration: none; }
-    @media (max-width: 600px) {
-      main { padding: 40px 16px; }
+    .tool-card:hover .tool-arrow { background: var(--brand-primary); border-color: var(--brand-primary); color: white; }
+    .tool-card.coming-soon { opacity: 0.45; cursor: default; pointer-events: none; }
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 32px; }
+    .footer-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .footer-logo img { height: 22px; opacity: 0.75; }
+    .footer-copy { font-size: 12px; color: var(--text-dim); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--brand-primary); }
+    @media (max-width: 640px) {
+      nav { padding: 12px 20px; }
+      .hero { padding: 52px 20px 48px; }
+      main { padding: 40px 20px; }
       .tools-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
     }
   </style>
 </head>
@@ -137,39 +164,74 @@
 
 <nav>
   <a href="/" class="nav-logo">
-    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-      <rect width="30" height="30" rx="7" fill="url(#ng)"/>
-      <text x="15" y="21" text-anchor="middle" fill="white" font-size="12" font-weight="800" font-family="system-ui">AI</text>
-      <defs>
-        <linearGradient id="ng" x1="0" y1="0" x2="30" y2="30">
-          <stop offset="0%" stop-color="#2D52EF"/>
-          <stop offset="100%" stop-color="#0F1F5C"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    <div class="nav-brand">
-      <span class="nav-product">Digital AI Tools</span>
-      <span class="nav-by">tools.digital-ai.tech</span>
-    </div>
+    <img src="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/logo-negative.png" alt="Digital AI" />
+    <div class="nav-divider"></div>
+    <span class="nav-section">Tools</span>
   </a>
+  <span class="nav-badge">tools.digital-ai.tech</span>
 </nav>
 
-<main>
-  <h1 class="page-title">Ferramentas & <span>Recursos</span></h1>
-  <p class="page-subtitle">Downloads, extensoes e utilitarios desenvolvidos pela Digital AI para uso interno e de parceiros.</p>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Digital AI · Recursos</div>
+    <h1 class="hero-title">
+      Ferramentas &amp;<br>
+      <span class="highlight">Extensões</span>
+    </h1>
+    <p class="hero-sub">
+      Downloads, extensões e utilitários desenvolvidos pela Digital AI
+      para uso de parceiros e clientes.
+    </p>
+  </div>
+</section>
 
+<main>
+  <div class="section-title">Disponível agora</div>
   <div class="tools-grid">
+
     <a href="/gmn-prospector/" class="tool-card">
-      <div class="tool-icon">🔍</div>
-      <div class="tool-name">GMN Prospector</div>
-      <div class="tool-desc">Extensao Chrome para coletar leads do Google Maps com dados completos: telefone, site, endereco e coordenadas. Export em Excel e CSV.</div>
-      <div class="tool-tag">Chrome Extension v4.0</div>
+      <div class="tool-icon-wrap">🔍</div>
+      <div class="tool-body">
+        <div class="tool-name">GMN Prospector</div>
+        <div class="tool-desc">
+          Extensão Chrome para coletar leads do Google Maps com dados completos:
+          telefone, site, endereço e coordenadas. Export em Excel e CSV.
+        </div>
+      </div>
+      <div class="tool-footer">
+        <span class="tool-tag">Chrome Extension · v4.0</span>
+        <div class="tool-arrow">→</div>
+      </div>
     </a>
+
+    <div class="tool-card coming-soon">
+      <div class="tool-icon-wrap">⚡</div>
+      <div class="tool-body">
+        <div class="tool-name">Em breve</div>
+        <div class="tool-desc">
+          Novos recursos estão sendo desenvolvidos pela Digital AI.
+          Fique de olho nas atualizações.
+        </div>
+      </div>
+      <div class="tool-footer">
+        <span class="tool-tag" style="background:rgba(100,110,140,0.1);border-color:rgba(100,110,140,0.2);color:var(--text-dim)">Proximamente</span>
+      </div>
+    </div>
+
   </div>
 </main>
 
 <footer>
-  <p>Digital AI Tools &middot; <a href="https://digital-ai.tech" target="_blank">digital-ai.tech</a></p>
+  <div class="footer-inner">
+    <a href="https://digital-ai.tech" target="_blank" class="footer-logo">
+      <img src="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/logo-negative.png" alt="Digital AI" />
+    </a>
+    <div class="footer-copy">© 2026 Digital AI · Inteligência que move negócios</div>
+    <div class="footer-links">
+      <a href="https://digital-ai.tech" target="_blank">Site</a>
+      <a href="mailto:contato@digital-ai.tech">Contato</a>
+    </div>
+  </div>
 </footer>
 
 </body>
