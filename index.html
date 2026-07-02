@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools — Digital AI</title>
+  <meta name="description" content="Ferramentas e recursos da Digital AI. Extensoes, utilitarios e downloads.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #2D52EF;
+      --secondary: #3B2FC9;
+      --bg: #07091a;
+      --surface: #0f1530;
+      --surface-2: #172048;
+      --border: #1e2d5c;
+      --text: #e8edf8;
+      --muted: #7a8ab8;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    nav {
+      background: rgba(7, 9, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-brand { display: flex; flex-direction: column; }
+    .nav-product { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); }
+    .nav-by { font-size: 10px; color: #a5b4fc; opacity: 0.6; }
+
+    main {
+      flex: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 64px 24px;
+      width: 100%;
+    }
+    .page-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .page-title span {
+      background: linear-gradient(135deg, #6b8aff, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 48px;
+      max-width: 520px;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tool-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .tool-icon { font-size: 32px; }
+    .tool-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .tool-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .tool-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(45, 82, 239, 0.12);
+      border: 1px solid rgba(45, 82, 239, 0.25);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #a5b4fc;
+      width: fit-content;
+    }
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+    }
+    footer p { font-size: 12px; color: var(--muted); }
+    footer a { color: var(--primary); text-decoration: none; }
+    @media (max-width: 600px) {
+      main { padding: 40px 16px; }
+      .tools-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+      <rect width="30" height="30" rx="7" fill="url(#ng)"/>
+      <text x="15" y="21" text-anchor="middle" fill="white" font-size="12" font-weight="800" font-family="system-ui">AI</text>
+      <defs>
+        <linearGradient id="ng" x1="0" y1="0" x2="30" y2="30">
+          <stop offset="0%" stop-color="#2D52EF"/>
+          <stop offset="100%" stop-color="#0F1F5C"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="nav-brand">
+      <span class="nav-product">Digital AI Tools</span>
+      <span class="nav-by">tools.digital-ai.tech</span>
+    </div>
+  </a>
+</nav>
+
+<main>
+  <h1 class="page-title">Ferramentas & <span>Recursos</span></h1>
+  <p class="page-subtitle">Downloads, extensoes e utilitarios desenvolvidos pela Digital AI para uso interno e de parceiros.</p>
+
+  <div class="tools-grid">
+    <a href="/gmn-prospector/" class="tool-card">
+      <div class="tool-icon">🔍</div>
+      <div class="tool-name">GMN Prospector</div>
+      <div class="tool-desc">Extensao Chrome para coletar leads do Google Maps com dados completos: telefone, site, endereco e coordenadas. Export em Excel e CSV.</div>
+      <div class="tool-tag">Chrome Extension v4.0</div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <p>Digital AI Tools &middot; <a href="https://digital-ai.tech" target="_blank">digital-ai.tech</a></p>
+</footer>
+
+</body>
+</html>
