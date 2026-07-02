@@ -7,10 +7,12 @@
   <link rel="icon" type="image/png" sizes="32x32" href="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/favicon-32.png">
   <link rel="shortcut icon" href="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/favicon-32.png">
   <meta name="description" content="Extensão Chrome para coletar leads do Google Maps com dados completos: telefone, site, endereço e coordenadas. By Digital AI.">
-
+  <meta property="og:title" content="GMN Prospector — Digital AI">
+  <meta property="og:description" content="Colete leads do Google Maps com dados completos. Export em Excel e CSV.">
+  <meta property="og:image" content="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/social/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -25,7 +27,6 @@
       --border:    #1e2d5c;
       --text:      #e8edf8;
       --muted:     #7a8ab8;
-      --success:   #22c55e;
     }
 
     html { scroll-behavior: smooth; }
@@ -38,365 +39,264 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── Nav ──────────────────────────────────────────────────────────── */
+    /* ── Nav ── */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
       background: rgba(7, 9, 26, 0.92);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
     }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .nav-logo img { height: 26px; display: block; flex-shrink: 0; }
-    .nav-divider { width: 1px; height: 18px; background: #2a3a6a; }
-
-    .nav-brand {
-      display: flex;
-      flex-direction: column;
-    }
-    .nav-product { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); }
-    .nav-by      { font-size: 10px; color: var(--accent); opacity: 0.6; }
-
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+    .nav-logo img { height: 24px; display: block; flex-shrink: 0; }
+    .nav-divider { width: 1px; height: 16px; background: #2a3a6a; flex-shrink: 0; }
+    .nav-product { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .nav-download {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      text-decoration: none;
-      padding: 9px 20px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
+      color: white; text-decoration: none;
+      padding: 9px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 600;
+      white-space: nowrap; flex-shrink: 0;
+      min-height: 40px; display: flex; align-items: center;
       transition: opacity 0.15s;
     }
     .nav-download:hover { opacity: 0.9; }
+    .nav-download .label-full { display: inline; }
+    .nav-download .label-short { display: none; }
 
-    /* ─── Hero ─────────────────────────────────────────────────────────── */
+    /* ── Hero ── */
     .hero {
       background: linear-gradient(160deg, #0d1a45 0%, #07091a 60%);
-      padding: 72px 24px 64px;
+      padding: 60px 20px 52px;
       text-align: center;
       border-bottom: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
-
     .hero::before {
       content: '';
-      position: absolute;
-      top: -80px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(ellipse, rgba(45, 82, 239, 0.2) 0%, transparent 70%);
+      position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(45, 82, 239, 0.18) 0%, transparent 70%);
       pointer-events: none;
     }
-
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      display: inline-flex; align-items: center; gap: 6px;
       background: rgba(45, 82, 239, 0.15);
       border: 1px solid rgba(45, 82, 239, 0.3);
-      border-radius: 100px;
-      padding: 5px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #a5b4fc;
-      margin-bottom: 24px;
-      letter-spacing: 0.3px;
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 12px; font-weight: 600; color: #a5b4fc;
+      margin-bottom: 20px; letter-spacing: 0.3px;
     }
-
     .hero h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(28px, 5vw, 46px);
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.15;
-      margin-bottom: 18px;
-      letter-spacing: -0.5px;
+      font-size: clamp(24px, 6vw, 46px);
+      font-weight: 800; color: var(--text);
+      line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px;
     }
-
     .hero h1 span {
       background: linear-gradient(135deg, #6b8aff, #a5b4fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
     .hero p {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 36px;
-      line-height: 1.7;
+      font-size: 15px; color: var(--muted);
+      max-width: 520px; margin: 0 auto 28px; line-height: 1.7;
     }
-
     .hero-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap;
     }
-
     .btn-hero-primary {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      text-decoration: none;
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.15s, box-shadow 0.15s;
+      color: white; text-decoration: none;
+      padding: 14px 24px; border-radius: 10px;
+      font-size: 15px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
       box-shadow: 0 4px 24px rgba(45, 82, 239, 0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      min-height: 48px;
     }
-    .btn-hero-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(45, 82, 239, 0.5);
-    }
-
+    .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(45, 82, 239, 0.5); }
     .btn-hero-secondary {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: var(--muted); text-decoration: none; font-size: 14px;
+      display: flex; align-items: center; gap: 6px;
+      min-height: 48px; padding: 0 4px;
       transition: color 0.15s;
     }
     .btn-hero-secondary:hover { color: var(--text); }
 
+    /* Preview mockup */
     .hero-preview {
-      margin-top: 48px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      max-width: 380px;
-      margin-left: auto;
-      margin-right: auto;
-      text-align: left;
+      margin-top: 40px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px;
+      max-width: 340px; margin-left: auto; margin-right: auto; text-align: left;
     }
-
-    .preview-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-    .preview-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .preview-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+    .preview-dot { width: 9px; height: 9px; border-radius: 50%; }
     .preview-dot:nth-child(1) { background: #ef4444; }
     .preview-dot:nth-child(2) { background: #f59e0b; }
     .preview-dot:nth-child(3) { background: #22c55e; }
-    .preview-title {
-      flex: 1;
-      text-align: center;
-      font-size: 11px;
-      color: var(--muted);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 600;
-    }
-
+    .preview-title { flex: 1; text-align: center; font-size: 10px; color: var(--muted); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
     .preview-fields { display: flex; flex-direction: column; gap: 8px; }
-    .preview-field { display: flex; flex-direction: column; gap: 3px; }
-    .preview-field label { font-size: 9px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-    .preview-field .pf-val { background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px; padding: 6px 10px; font-size: 12px; color: var(--text); }
-    .preview-field .pf-row { display: flex; gap: 6px; }
-    .preview-field .pf-row .pf-val { flex: 1; }
-
+    .preview-field label { display: block; font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+    .pf-val { background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px; padding: 6px 10px; font-size: 12px; color: var(--text); }
+    .pf-row { display: flex; gap: 6px; }
+    .pf-row > div { flex: 1; }
+    .pf-row > div:last-child { flex: 0 0 64px; }
     .preview-btn {
-      margin-top: 12px;
-      width: 100%;
+      margin-top: 10px; width: 100%;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border: none;
-      border-radius: 7px;
-      padding: 10px;
-      font-size: 12px;
-      font-weight: 700;
-      color: white;
-      cursor: default;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      border: none; border-radius: 7px; padding: 9px;
+      font-size: 11px; font-weight: 700; color: white;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
     }
 
-    /* ─── Features ─────────────────────────────────────────────────────── */
-    .features {
-      padding: 64px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
+    /* ── Sections shared ── */
+    .section-inner { max-width: 880px; margin: 0 auto; padding: 56px 20px; }
     .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      font-size: 11px; font-weight: 700; color: var(--primary);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;
     }
-
     .section-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 40px;
-      letter-spacing: -0.3px;
+      font-size: clamp(20px, 3.5vw, 28px); font-weight: 800;
+      color: var(--text); margin-bottom: 32px; letter-spacing: -0.3px;
     }
 
+    /* ── Features grid ── */
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
     }
-
     .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 20px;
       transition: border-color 0.2s;
     }
     .feature-card:hover { border-color: var(--primary); }
-
-    .feature-icon { font-size: 24px; margin-bottom: 12px; }
-    .feature-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
+    .feature-icon { font-size: 22px; margin-bottom: 10px; }
+    .feature-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 5px; }
     .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-    /* ─── Tutorial ─────────────────────────────────────────────────────── */
-    .tutorial {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 64px 24px;
-    }
-
-    .tutorial-inner {
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
-
-    .step {
-      display: flex;
-      gap: 20px;
-      padding-bottom: 32px;
-      position: relative;
-    }
+    /* ── Tutorial / Steps ── */
+    .tutorial { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 32px; }
+    .step { display: flex; gap: 16px; padding-bottom: 28px; position: relative; }
     .step:last-child { padding-bottom: 0; }
-
     .step-line {
-      position: absolute;
-      left: 19px;
-      top: 40px;
-      bottom: 0;
-      width: 2px;
+      position: absolute; left: 18px; top: 38px; bottom: 0; width: 2px;
       background: linear-gradient(to bottom, var(--primary), transparent);
     }
     .step:last-child .step-line { display: none; }
-
     .step-num {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 800;
-      color: white;
-      position: relative;
-      z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: white;
+      position: relative; z-index: 1;
     }
-
-    .step-content { flex: 1; padding-top: 8px; }
-
-    .step-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .step-content { flex: 1; padding-top: 7px; min-width: 0; }
+    .step-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
     .step-desc code {
-      background: rgba(45, 82, 239, 0.15);
-      border: 1px solid rgba(45, 82, 239, 0.25);
-      border-radius: 4px;
-      padding: 2px 6px;
-      font-family: 'SFMono-Regular', Consolas, monospace;
-      font-size: 12px;
-      color: #a5b4fc;
+      background: rgba(45, 82, 239, 0.15); border: 1px solid rgba(45, 82, 239, 0.25);
+      border-radius: 4px; padding: 2px 6px;
+      font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11px; color: #a5b4fc;
     }
-
     .step-img {
-      margin-top: 14px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      font-size: 12px;
-      color: var(--muted);
-      font-family: monospace;
+      margin-top: 10px; background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px;
+      font-size: 12px; color: var(--muted); font-family: monospace;
+      overflow-x: auto; white-space: nowrap;
+    }
+    .step-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white; text-decoration: none;
+      padding: 10px 18px; border-radius: 8px;
+      font-weight: 700; font-size: 13px; margin-top: 10px;
+      min-height: 44px;
     }
 
-    /* ─── Download CTA ─────────────────────────────────────────────────── */
-    .cta-section {
-      padding: 72px 24px;
-      text-align: center;
-    }
-
+    /* ── CTA final ── */
+    .cta-section { padding: 64px 20px; text-align: center; }
     .cta-section h2 {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(24px, 4vw, 36px);
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 16px;
-      letter-spacing: -0.3px;
+      font-size: clamp(22px, 4vw, 34px); font-weight: 800;
+      color: var(--text); margin-bottom: 12px; letter-spacing: -0.3px;
     }
+    .cta-section p { font-size: 15px; color: var(--muted); margin-bottom: 28px; }
 
-    .cta-section p { font-size: 15px; color: var(--muted); margin-bottom: 32px; }
-
-    /* ─── Footer ───────────────────────────────────────────────────────── */
+    /* ── Footer ── */
     footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 24px;
-      text-align: center;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 28px 20px; text-align: center;
     }
-    footer img { height: 28px; margin-bottom: 10px; }
+    footer img { height: 26px; margin-bottom: 10px; }
     footer p { font-size: 12px; color: var(--muted); }
     footer a { color: var(--primary); text-decoration: none; }
 
-    /* ─── Responsive ───────────────────────────────────────────────────── */
-    @media (max-width: 600px) {
-      nav { padding: 12px 16px; }
-      .hero { padding: 48px 16px 40px; }
+    /* ════════════════════════════════════════
+       MOBILE — max-width: 480px
+    ════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      /* Nav: esconde texto do botão, mantém ícone */
+      nav { padding: 10px 14px; }
+      .nav-download { padding: 9px 12px; font-size: 12px; }
+      .nav-download .label-full { display: none; }
+      .nav-download .label-short { display: inline; }
+
+      /* Hero: sem padding lateral excessivo */
+      .hero { padding: 44px 16px 40px; }
+      .hero h1 { font-size: clamp(22px, 7vw, 30px); }
+      .hero p { font-size: 14px; }
+
+      /* CTA hero: botão principal full-width */
+      .hero-cta { flex-direction: column; gap: 10px; width: 100%; }
+      .btn-hero-primary { width: 100%; justify-content: center; font-size: 14px; }
+      .btn-hero-secondary { width: 100%; justify-content: center; font-size: 13px; }
+
+      /* Preview mockup: compacto */
+      .hero-preview { padding: 14px; margin-top: 28px; }
+
+      /* Sections */
+      .section-inner { padding: 40px 16px; }
+      .section-title { font-size: 20px; margin-bottom: 24px; }
+
+      /* Features: 1 coluna no mobile */
+      .features-grid { grid-template-columns: 1fr; gap: 10px; }
+      .feature-card { padding: 16px; display: flex; gap: 12px; align-items: flex-start; }
+      .feature-icon { font-size: 20px; margin-bottom: 0; flex-shrink: 0; }
+      .feature-body { flex: 1; }
+
+      /* Steps: mais compacto */
+      .step { gap: 12px; padding-bottom: 24px; }
+      .step-num { width: 32px; height: 32px; font-size: 12px; }
+      .step-line { left: 15px; top: 34px; }
+      .step-content { padding-top: 5px; }
+      .step-title { font-size: 14px; }
+      .step-desc { font-size: 13px; }
+      .step-btn { width: 100%; justify-content: center; }
+
+      /* CTA final */
+      .cta-section { padding: 48px 16px; }
+      .cta-section .btn-hero-primary { width: 100%; justify-content: center; }
+
+      /* Footer */
+      footer { padding: 24px 16px; }
+    }
+
+    /* Tablet intermediário */
+    @media (max-width: 640px) and (min-width: 481px) {
+      .hero { padding: 52px 20px 44px; }
+      .hero-cta { flex-direction: column; gap: 10px; }
+      .btn-hero-primary { width: 100%; justify-content: center; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-inner { padding: 48px 20px; }
     }
   </style>
 </head>
@@ -409,30 +309,24 @@
     <div class="nav-divider"></div>
     <span class="nav-product">GMN Prospector</span>
   </a>
-  <a href="https://tools.digital-ai.tech/gmn-extension.zip"
-     class="nav-download" download>
-    ⬇ Baixar Extensão
+  <a href="https://tools.digital-ai.tech/gmn-extension.zip" class="nav-download" download>
+    <span class="label-full">⬇ Baixar Extensão</span>
+    <span class="label-short">⬇ Baixar</span>
   </a>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
-  <div class="hero-badge">
-    <span>⚡</span> Chrome Extension · Versão 4.0
-  </div>
+  <div class="hero-badge"><span>⚡</span> Chrome Extension · Versão 4.0</div>
   <h1>Prospecção no Google Maps<br><span>em segundos, não horas</span></h1>
-  <p>Colete telefone, site, endereço, avaliação e coordenadas de qualquer segmento de negócio diretamente do Google Maps — e exporte tudo em Excel ou CSV.</p>
+  <p>Colete telefone, site, endereço, avaliação e coordenadas de qualquer segmento de negócio diretamente do Google Maps — e exporte em Excel ou CSV.</p>
   <div class="hero-cta">
-    <a href="https://tools.digital-ai.tech/gmn-extension.zip"
-       class="btn-hero-primary" download>
+    <a href="https://tools.digital-ai.tech/gmn-extension.zip" class="btn-hero-primary" download>
       ⬇ Baixar Extensão (ZIP)
     </a>
-    <a href="#tutorial" class="btn-hero-secondary">
-      Ver como instalar →
-    </a>
+    <a href="#tutorial" class="btn-hero-secondary">Ver como instalar →</a>
   </div>
 
-  <!-- Preview mockup -->
   <div class="hero-preview">
     <div class="preview-bar">
       <div class="preview-dot"></div>
@@ -447,11 +341,11 @@
       </div>
       <div class="preview-field">
         <div class="pf-row">
-          <div style="flex:1">
+          <div>
             <label>Cidade / Região</label>
             <div class="pf-val">Goiânia GO</div>
           </div>
-          <div style="flex:0 0 64px">
+          <div>
             <label>Qtd</label>
             <div class="pf-val" style="text-align:center">40</div>
           </div>
@@ -463,49 +357,62 @@
 </section>
 
 <!-- Features -->
-<section class="features">
-  <div class="section-label">Funcionalidades</div>
-  <div class="section-title">Tudo que você precisa para prospectar</div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">📞</div>
-      <div class="feature-title">Dados Completos</div>
-      <div class="feature-desc">Nome, telefone, site, endereço, avaliação, número de avaliações, categoria, latitude e longitude.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔄</div>
-      <div class="feature-title">Sem Abas Extras</div>
-      <div class="feature-desc">Coleta via requisições internas. Uma aba abre brevemente para buscar — depois tudo roda em segundo plano.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <div class="feature-title">Export Excel + CSV</div>
-      <div class="feature-desc">Baixe em XLSX (Excel) ou CSV com encoding UTF-8. Abre direto no Excel, LibreOffice e Google Sheets.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔢</div>
-      <div class="feature-title">Quantidade Livre</div>
-      <div class="feature-desc">Digite qualquer número de 1 a 200. A extensão pagina automaticamente no Maps para coletar tudo.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🛡️</div>
-      <div class="feature-title">100% Local</div>
-      <div class="feature-desc">Nenhum dado sai do seu navegador. Nenhum servidor externo. Seus leads ficam só com você.</div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔍</div>
-      <div class="feature-title">Logs em Tempo Real</div>
-      <div class="feature-desc">Painel de debug integrado mostra cada etapa: quantos places encontrados, quais têm telefone/site.</div>
+<section>
+  <div class="section-inner">
+    <div class="section-label">Funcionalidades</div>
+    <div class="section-title">Tudo que você precisa para prospectar</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📞</div>
+        <div class="feature-body">
+          <div class="feature-title">Dados Completos</div>
+          <div class="feature-desc">Nome, telefone, site, endereço, avaliação, número de avaliações, categoria, latitude e longitude.</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <div class="feature-body">
+          <div class="feature-title">Sem Abas Extras</div>
+          <div class="feature-desc">Uma aba abre para buscar — depois tudo roda em segundo plano. Pode navegar normalmente.</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-body">
+          <div class="feature-title">Export Excel + CSV</div>
+          <div class="feature-desc">Baixe em XLSX ou CSV (UTF-8). Abre direto no Excel, LibreOffice e Google Sheets.</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔢</div>
+        <div class="feature-body">
+          <div class="feature-title">Quantidade Livre</div>
+          <div class="feature-desc">Digite de 1 a 200. A extensão pagina automaticamente no Maps para coletar tudo.</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-body">
+          <div class="feature-title">100% Local</div>
+          <div class="feature-desc">Nenhum dado sai do seu navegador. Nenhum servidor externo. Seus leads ficam só com você.</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-body">
+          <div class="feature-title">Logs em Tempo Real</div>
+          <div class="feature-desc">Painel de debug integrado mostra cada etapa: places encontrados, telefone, site.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Tutorial -->
 <section class="tutorial" id="tutorial">
-  <div class="tutorial-inner">
+  <div class="section-inner">
     <div class="section-label">Instalação</div>
     <div class="section-title">Como instalar em 5 passos</div>
-
     <div class="steps">
 
       <div class="step">
@@ -514,11 +421,9 @@
         <div class="step-content">
           <div class="step-title">Baixe o arquivo ZIP</div>
           <div class="step-desc">
-            Clique no botão abaixo para baixar o arquivo <code>gmn-extension.zip</code> para o seu computador.
+            Clique no botão abaixo para baixar o <code>gmn-extension.zip</code> para o seu computador.
             <br><br>
-            <a href="https://tools.digital-ai.tech/gmn-extension.zip"
-               style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2D52EF,#3B2FC9);color:white;text-decoration:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;margin-top:4px;"
-               download>
+            <a href="https://tools.digital-ai.tech/gmn-extension.zip" class="step-btn" download>
               ⬇ Baixar gmn-extension.zip
             </a>
           </div>
@@ -531,7 +436,7 @@
         <div class="step-content">
           <div class="step-title">Extraia o ZIP</div>
           <div class="step-desc">
-            Clique com o botão direito no arquivo baixado e escolha <strong>"Extrair tudo"</strong> (Windows) ou clique duas vezes (Mac).<br><br>
+            Clique com o botão direito e escolha <strong>"Extrair tudo"</strong> (Windows) ou clique duas vezes (Mac).<br><br>
             Você verá uma pasta chamada <code>gmn-extension</code> com os arquivos internos.
           </div>
         </div>
@@ -543,8 +448,8 @@
         <div class="step-content">
           <div class="step-title">Abra a página de extensões do Chrome</div>
           <div class="step-desc">
-            No Chrome, clique nos três pontos no canto superior direito → <strong>Extensões</strong> → <strong>Gerenciar extensões</strong>.<br><br>
-            Ou simplesmente cole isso na barra de endereço:
+            Clique nos três pontos → <strong>Extensões</strong> → <strong>Gerenciar extensões</strong>.<br><br>
+            Ou cole na barra de endereço:
           </div>
           <div class="step-img">chrome://extensions/</div>
         </div>
@@ -556,9 +461,8 @@
         <div class="step-content">
           <div class="step-title">Ative o Modo Desenvolvedor</div>
           <div class="step-desc">
-            No canto superior direito da página de extensões, ative o toggle <strong>"Modo do desenvolvedor"</strong>.
-            <br><br>
-            Três novos botões aparecerão: <em>Carregar sem compactação</em>, <em>Compactar extensão</em> e <em>Atualizar</em>.
+            No canto superior direito ative o toggle <strong>"Modo do desenvolvedor"</strong>.<br><br>
+            Três botões vão aparecer: <em>Carregar sem compactação</em>, <em>Compactar extensão</em> e <em>Atualizar</em>.
           </div>
         </div>
       </div>
@@ -569,9 +473,9 @@
         <div class="step-content">
           <div class="step-title">Carregue a extensão</div>
           <div class="step-desc">
-            Clique em <strong>"Carregar sem compactação"</strong> e selecione a pasta <code>gmn-extension</code> que você extraiu no Passo 2.<br><br>
-            A extensão <strong>GMN Prospector — Digital AI</strong> aparecerá na lista. Pronto! 🎉<br><br>
-            Clique no ícone de quebra-cabeça 🧩 no canto superior direito do Chrome e fixe a extensão na barra.
+            Clique em <strong>"Carregar sem compactação"</strong> e selecione a pasta <code>gmn-extension</code> extraída no Passo 2.<br><br>
+            O <strong>GMN Prospector — Digital AI</strong> aparecerá na lista. Pronto! 🎉<br><br>
+            Clique no ícone 🧩 no Chrome e fixe a extensão na barra.
           </div>
         </div>
       </div>
@@ -581,53 +485,59 @@
 </section>
 
 <!-- Como usar -->
-<section class="features" id="uso">
-  <div class="section-label">Como usar</div>
-  <div class="section-title">Coletando seus primeiros leads</div>
+<section id="uso">
+  <div class="section-inner">
+    <div class="section-label">Como usar</div>
+    <div class="section-title">Coletando seus primeiros leads</div>
+    <div class="steps">
 
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-line"></div>
-      <div class="step-content">
-        <div class="step-title">Abra a extensão</div>
-        <div class="step-desc">Clique no ícone do <strong>GMN Prospector</strong> na barra do Chrome (o quadrado com "AI" em azul).</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-line"></div>
-      <div class="step-content">
-        <div class="step-title">Preencha os campos</div>
-        <div class="step-desc">
-          <strong>O que buscar:</strong> ex. <code>clínicas odontológicas</code>, <code>academias de ginástica</code>, <code>escritórios de advocacia</code><br><br>
-          <strong>Cidade:</strong> ex. <code>Goiânia GO</code>, <code>São Paulo SP</code><br><br>
-          <strong>Qtd:</strong> quantos leads você quer coletar (1–200). A extensão faz paginação automática.
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-line"></div>
+        <div class="step-content">
+          <div class="step-title">Abra a extensão</div>
+          <div class="step-desc">Clique no ícone do <strong>GMN Prospector</strong> na barra do Chrome.</div>
         </div>
       </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-line"></div>
-      <div class="step-content">
-        <div class="step-title">Clique em "Gerar Planilha de Leads"</div>
-        <div class="step-desc">
-          Uma aba do Google Maps vai abrir — é normal, ela é necessária para a coleta.<br><br>
-          <strong>Pode usar outras abas normalmente</strong> enquanto aguarda. A coleta roda em segundo plano e você pode fechar e reabrir o popup a qualquer momento.
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-line"></div>
+        <div class="step-content">
+          <div class="step-title">Preencha os campos</div>
+          <div class="step-desc">
+            <strong>O que buscar:</strong> ex. <code>clínicas odontológicas</code>, <code>academias de ginástica</code><br><br>
+            <strong>Cidade:</strong> ex. <code>Goiânia GO</code>, <code>São Paulo SP</code><br><br>
+            <strong>Qtd:</strong> de 1 a 200. Paginação automática.
+          </div>
         </div>
       </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-line"></div>
-      <div class="step-content">
-        <div class="step-title">Baixe os leads</div>
-        <div class="step-desc">
-          Quando terminar, o popup mostra um preview dos leads e dois botões:<br><br>
-          📥 <strong>Baixar CSV</strong> — para Google Sheets, LibreOffice<br>
-          📊 <strong>Baixar Excel</strong> — para Microsoft Excel (com todas as colunas formatadas)
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-line"></div>
+        <div class="step-content">
+          <div class="step-title">Clique em "Gerar Planilha de Leads"</div>
+          <div class="step-desc">
+            Uma aba do Google Maps vai abrir brevemente — é normal.<br><br>
+            <strong>Pode usar outras abas normalmente</strong> enquanto aguarda. A coleta roda em segundo plano.
+          </div>
         </div>
       </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-line"></div>
+        <div class="step-content">
+          <div class="step-title">Baixe os leads</div>
+          <div class="step-desc">
+            Quando terminar, aparece um preview e dois botões:<br><br>
+            📥 <strong>Baixar CSV</strong> — Google Sheets, LibreOffice<br>
+            📊 <strong>Baixar Excel</strong> — Microsoft Excel
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -636,18 +546,14 @@
 <section class="cta-section">
   <h2>Comece a prospectar agora</h2>
   <p>Gratuito para uso interno. Nenhuma conta necessária.</p>
-  <a href="https://tools.digital-ai.tech/gmn-extension.zip"
-     class="btn-hero-primary" style="display:inline-flex;" download>
+  <a href="https://tools.digital-ai.tech/gmn-extension.zip" class="btn-hero-primary" style="display:inline-flex;" download>
     ⬇ Baixar GMN Prospector (ZIP)
   </a>
 </section>
 
 <!-- Footer -->
 <footer>
-  <img src="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/logo-negative.png"
-       alt="Digital AI"
-       onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-  <p style="display:none; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:16px; color:#E8EEFF; margin-bottom:8px;">Digital AI</p>
+  <img src="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/logo-negative.png" alt="Digital AI">
   <p>GMN Prospector · <a href="https://digital-ai.tech" target="_blank">digital-ai.tech</a></p>
 </footer>
 
