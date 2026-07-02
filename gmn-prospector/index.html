@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GMN Prospector — Digital AI</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/favicon-32.png">
+  <link rel="shortcut icon" href="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/favicon-32.png">
   <meta name="description" content="Extensão Chrome para coletar leads do Google Maps com dados completos: telefone, site, endereço e coordenadas. By Digital AI.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +59,8 @@
       text-decoration: none;
     }
 
-    .nav-logo svg { flex-shrink: 0; }
+    .nav-logo img { height: 26px; display: block; flex-shrink: 0; }
+    .nav-divider { width: 1px; height: 18px; background: #2a3a6a; }
 
     .nav-brand {
       display: flex;
@@ -401,21 +404,10 @@
 
 <!-- Nav -->
 <nav>
-  <a href="#" class="nav-logo">
-    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-      <rect width="30" height="30" rx="7" fill="url(#nav-g)"/>
-      <text x="15" y="21" text-anchor="middle" fill="white" font-size="12" font-weight="800" font-family="system-ui">AI</text>
-      <defs>
-        <linearGradient id="nav-g" x1="0" y1="0" x2="30" y2="30">
-          <stop offset="0%" stop-color="#2D52EF"/>
-          <stop offset="100%" stop-color="#0F1F5C"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    <div class="nav-brand">
-      <span class="nav-product">GMN Prospector</span>
-      <span class="nav-by">by Digital AI</span>
-    </div>
+  <a href="/" class="nav-logo">
+    <img src="https://s3.amazonaws.com/cdn.digital-ai.tech/uploads/media-cortex/identity/digital-ai/logos/logo-negative.png" alt="Digital AI" />
+    <div class="nav-divider"></div>
+    <span class="nav-product">GMN Prospector</span>
   </a>
   <a href="https://raw.githubusercontent.com/matheusfterra/cortex/main/files/gmn-extension.zip"
      class="nav-download" download>
